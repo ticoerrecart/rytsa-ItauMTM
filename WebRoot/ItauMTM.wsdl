@@ -1,0 +1,125 @@
+<definitions name="TestService" targetNamespace="http://valuaciones.itau.rytsa/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://valuaciones.itau.rytsa/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <types>
+  <xs:schema targetNamespace="http://valuaciones.itau.rytsa/" version="1.0" xmlns:tns="http://valuaciones.itau.rytsa/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="Exception" type="tns:Exception"/>
+   <xs:element name="ParseException" type="tns:ParseException"/>
+   <xs:element name="calcularMTMNdf" type="tns:calcularMTMNdf"/>
+   <xs:element name="calcularMTMNdfResponse" type="tns:calcularMTMNdfResponse"/>
+   <xs:element name="calcularMTMSwap" type="tns:calcularMTMSwap"/>
+   <xs:element name="calcularMTMSwapResponse" type="tns:calcularMTMSwapResponse"/>
+   <xs:complexType name="calcularMTMSwap">
+    <xs:sequence/>
+   </xs:complexType>
+   <xs:complexType name="calcularMTMSwapResponse">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:novedadesValuacionesRequestData"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="novedadesValuacionesRequestData">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="fecha" type="xs:dateTime"/>
+     <xs:element minOccurs="0" name="fechaCargaPrecio" type="xs:dateTime"/>
+     <xs:element minOccurs="0" name="fechaUltimaValuacion" type="xs:dateTime"/>
+     <xs:element minOccurs="0" name="idOperacion" type="xs:string"/>
+     <xs:element minOccurs="0" name="idUsuarioCargaSE" type="xs:string"/>
+     <xs:element minOccurs="0" name="monedaValuacion" type="xs:string"/>
+     <xs:element name="plazo" type="xs:int"/>
+     <xs:element minOccurs="0" name="precio" type="xs:double"/>
+     <xs:element minOccurs="0" name="tasaUtilizada" type="xs:double"/>
+     <xs:element minOccurs="0" name="tipoValuacion" type="xs:string"/>
+     <xs:element minOccurs="0" name="totalValuado" type="xs:double"/>
+     <xs:element minOccurs="0" name="valoresNominales" type="xs:double"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ParseException">
+    <xs:sequence>
+     <xs:element name="errorOffset" type="xs:int"/>
+     <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Exception">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="calcularMTMNdf">
+    <xs:sequence/>
+   </xs:complexType>
+   <xs:complexType name="calcularMTMNdfResponse">
+    <xs:sequence>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:novedadesValuacionesRequestData"/>
+    </xs:sequence>
+   </xs:complexType>
+  </xs:schema>
+ </types>
+ <message name="Test_calcularMTMSwap">
+  <part element="tns:calcularMTMSwap" name="calcularMTMSwap"/>
+ </message>
+ <message name="Test_calcularMTMNdfResponse">
+  <part element="tns:calcularMTMNdfResponse" name="calcularMTMNdfResponse"/>
+ </message>
+ <message name="ParseException">
+  <part element="tns:ParseException" name="ParseException"/>
+ </message>
+ <message name="Exception">
+  <part element="tns:Exception" name="Exception"/>
+ </message>
+ <message name="Test_calcularMTMSwapResponse">
+  <part element="tns:calcularMTMSwapResponse" name="calcularMTMSwapResponse"/>
+ </message>
+ <message name="Test_calcularMTMNdf">
+  <part element="tns:calcularMTMNdf" name="calcularMTMNdf"/>
+ </message>
+ <portType name="Test">
+  <operation name="calcularMTMNdf" parameterOrder="calcularMTMNdf">
+   <input message="tns:Test_calcularMTMNdf"/>
+   <output message="tns:Test_calcularMTMNdfResponse"/>
+   <fault message="tns:Exception" name="Exception"/>
+   <fault message="tns:ParseException" name="ParseException"/>
+  </operation>
+  <operation name="calcularMTMSwap" parameterOrder="calcularMTMSwap">
+   <input message="tns:Test_calcularMTMSwap"/>
+   <output message="tns:Test_calcularMTMSwapResponse"/>
+   <fault message="tns:Exception" name="Exception"/>
+   <fault message="tns:ParseException" name="ParseException"/>
+  </operation>
+ </portType>
+ <binding name="TestBinding" type="tns:Test">
+  <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="calcularMTMNdf">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body use="literal"/>
+   </input>
+   <output>
+    <soap:body use="literal"/>
+   </output>
+   <fault name="Exception">
+    <soap:fault name="Exception" use="literal"/>
+   </fault>
+   <fault name="ParseException">
+    <soap:fault name="ParseException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="calcularMTMSwap">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body use="literal"/>
+   </input>
+   <output>
+    <soap:body use="literal"/>
+   </output>
+   <fault name="Exception">
+    <soap:fault name="Exception" use="literal"/>
+   </fault>
+   <fault name="ParseException">
+    <soap:fault name="ParseException" use="literal"/>
+   </fault>
+  </operation>
+ </binding>
+ <service name="TestService">
+  <port binding="tns:TestBinding" name="TestPort">
+   <soap:address location="http://127.0.0.1:8080/ItauMTM/ItauMTM"/>
+  </port>
+ </service>
+</definitions>
