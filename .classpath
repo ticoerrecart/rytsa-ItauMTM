@@ -2,13 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="com.genuitec.eclipse.j2eedt.core.J2EE14_CONTAINER"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/JavaDBF.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.1-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/easymock-3.0-sources.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/objenesis-1.2-sources.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ESBconFuentes.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/cglib-nodep-2.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.8.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-collections-3.2.1.jar"/>
@@ -19,5 +17,9 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sqlitejdbc-v056.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xstream-1.3.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/Itau.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/home/rodolfo/apache-tomcat-6.0.29/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ESBClient.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
