@@ -6,21 +6,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-  </head>
-  
   <body>
-    This is my JSP page. <br>
+  <form action="/ItauMTM/servlet/ConsumirWS" >
+    <P>Invocar WS Suma 1 Dia:</P> 
+	    <input type="hidden" name="metodo" value="Suma1Dia">
+	    <P> 	<input type="text" name="Fecha"> (DD/MM/AAAA) Ej = 02/03/2010 </P>  
+	    <P> 	<input type="submit" value="Consumir"> </P>
+	 <%String c =  (String)request.getAttribute("resul3"); %>
+	 Resultado : <%=c %>
+	</form> 
+	 <hr>
+
+  <form action="/ItauMTM/servlet/ConsumirWS" >
+    <P>Invocar WS Calcular MTM NDF:</P> 
+	    <input type="hidden" name="metodo" value="NDF">
+	    <P> 	<input type="text" name="Fecha"> (DD/MM/AAAA) Ej = 02/03/2010 </P>  
+	    <P> 	<input type="submit" value="Consumir"> </P>
+	 <%String a =  (String)request.getAttribute("resul"); %>
+	 Resultado : <%=a %>
+	</form> 
+	 <hr>
+	<form action="/ItauMTM/servlet/ConsumirWS" >
+	 <P>Invocar WS Calcular MTM SWAP:</P>
+	 	<input type="hidden" name="metodo" value="SWAP"> 
+        <P> 	<input type="text" name="Fecha"> (DD/MM/AAAA) Ej = 02/03/2010 </P>  
+	    <P> 	<input type="submit" value="Consumir"> </P>
+	 <%String b =  (String)request.getAttribute("resul2"); %>
+	 Resultado : <%=b %>
+	</form>	 
   </body>
 </html>

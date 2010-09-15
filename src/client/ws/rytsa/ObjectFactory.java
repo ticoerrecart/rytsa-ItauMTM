@@ -26,7 +26,9 @@ public class ObjectFactory {
 
     private final static QName _ParseException_QNAME = new QName("http://valuaciones.itau.rytsa/", "ParseException");
     private final static QName _CalcularMTMNdfResponse_QNAME = new QName("http://valuaciones.itau.rytsa/", "calcularMTMNdfResponse");
+    private final static QName _TestSuma1DiaResponse_QNAME = new QName("http://valuaciones.itau.rytsa/", "testSuma1DiaResponse");
     private final static QName _CalcularMTMSwap_QNAME = new QName("http://valuaciones.itau.rytsa/", "calcularMTMSwap");
+    private final static QName _TestSuma1Dia_QNAME = new QName("http://valuaciones.itau.rytsa/", "testSuma1Dia");
     private final static QName _Exception_QNAME = new QName("http://valuaciones.itau.rytsa/", "Exception");
     private final static QName _CalcularMTMSwapResponse_QNAME = new QName("http://valuaciones.itau.rytsa/", "calcularMTMSwapResponse");
     private final static QName _CalcularMTMNdf_QNAME = new QName("http://valuaciones.itau.rytsa/", "calcularMTMNdf");
@@ -36,6 +38,30 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link TestSuma1Dia }
+     * 
+     */
+    public TestSuma1Dia createTestSuma1Dia() {
+        return new TestSuma1Dia();
+    }
+
+    /**
+     * Create an instance of {@link CalcularMTMSwap }
+     * 
+     */
+    public CalcularMTMSwap createCalcularMTMSwap() {
+        return new CalcularMTMSwap();
+    }
+
+    /**
+     * Create an instance of {@link CalcularMTMNdf }
+     * 
+     */
+    public CalcularMTMNdf createCalcularMTMNdf() {
+        return new CalcularMTMNdf();
     }
 
     /**
@@ -55,19 +81,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CalcularMTMNdfResponse }
+     * Create an instance of {@link TestSuma1DiaResponse }
      * 
      */
-    public CalcularMTMNdfResponse createCalcularMTMNdfResponse() {
-        return new CalcularMTMNdfResponse();
-    }
-
-    /**
-     * Create an instance of {@link CalcularMTMSwap }
-     * 
-     */
-    public CalcularMTMSwap createCalcularMTMSwap() {
-        return new CalcularMTMSwap();
+    public TestSuma1DiaResponse createTestSuma1DiaResponse() {
+        return new TestSuma1DiaResponse();
     }
 
     /**
@@ -79,19 +97,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CalcularMTMNdfResponse }
+     * 
+     */
+    public CalcularMTMNdfResponse createCalcularMTMNdfResponse() {
+        return new CalcularMTMNdfResponse();
+    }
+
+    /**
      * Create an instance of {@link ParseException }
      * 
      */
     public ParseException createParseException() {
         return new ParseException();
-    }
-
-    /**
-     * Create an instance of {@link CalcularMTMNdf }
-     * 
-     */
-    public CalcularMTMNdf createCalcularMTMNdf() {
-        return new CalcularMTMNdf();
     }
 
     /**
@@ -113,12 +131,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TestSuma1DiaResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://valuaciones.itau.rytsa/", name = "testSuma1DiaResponse")
+    public JAXBElement<TestSuma1DiaResponse> createTestSuma1DiaResponse(TestSuma1DiaResponse value) {
+        return new JAXBElement<TestSuma1DiaResponse>(_TestSuma1DiaResponse_QNAME, TestSuma1DiaResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CalcularMTMSwap }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://valuaciones.itau.rytsa/", name = "calcularMTMSwap")
     public JAXBElement<CalcularMTMSwap> createCalcularMTMSwap(CalcularMTMSwap value) {
         return new JAXBElement<CalcularMTMSwap>(_CalcularMTMSwap_QNAME, CalcularMTMSwap.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TestSuma1Dia }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://valuaciones.itau.rytsa/", name = "testSuma1Dia")
+    public JAXBElement<TestSuma1Dia> createTestSuma1Dia(TestSuma1Dia value) {
+        return new JAXBElement<TestSuma1Dia>(_TestSuma1Dia_QNAME, TestSuma1Dia.class, null, value);
     }
 
     /**

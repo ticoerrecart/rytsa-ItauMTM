@@ -7,12 +7,14 @@
    <xs:element name="calcularMTMNdfResponse" type="tns:calcularMTMNdfResponse"/>
    <xs:element name="calcularMTMSwap" type="tns:calcularMTMSwap"/>
    <xs:element name="calcularMTMSwapResponse" type="tns:calcularMTMSwapResponse"/>
-   <xs:complexType name="calcularMTMSwap">
+   <xs:element name="testSuma1Dia" type="tns:testSuma1Dia"/>
+   <xs:element name="testSuma1DiaResponse" type="tns:testSuma1DiaResponse"/>
+   <xs:complexType name="calcularMTMNdf">
     <xs:sequence>
      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
     </xs:sequence>
    </xs:complexType>
-   <xs:complexType name="calcularMTMSwapResponse">
+   <xs:complexType name="calcularMTMNdfResponse">
     <xs:sequence>
      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:novedadesValuacionesRequestData"/>
     </xs:sequence>
@@ -44,18 +46,31 @@
      <xs:element minOccurs="0" name="message" type="xs:string"/>
     </xs:sequence>
    </xs:complexType>
-   <xs:complexType name="calcularMTMNdf">
+   <xs:complexType name="calcularMTMSwap">
     <xs:sequence>
      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
     </xs:sequence>
    </xs:complexType>
-   <xs:complexType name="calcularMTMNdfResponse">
+   <xs:complexType name="calcularMTMSwapResponse">
     <xs:sequence>
      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:novedadesValuacionesRequestData"/>
     </xs:sequence>
    </xs:complexType>
+   <xs:complexType name="testSuma1Dia">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="testSuma1DiaResponse">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+   </xs:complexType>
   </xs:schema>
  </types>
+ <message name="Test_testSuma1Dia">
+  <part element="tns:testSuma1Dia" name="testSuma1Dia"/>
+ </message>
  <message name="Test_calcularMTMSwap">
   <part element="tns:calcularMTMSwap" name="calcularMTMSwap"/>
  </message>
@@ -67,6 +82,9 @@
  </message>
  <message name="Exception">
   <part element="tns:Exception" name="Exception"/>
+ </message>
+ <message name="Test_testSuma1DiaResponse">
+  <part element="tns:testSuma1DiaResponse" name="testSuma1DiaResponse"/>
  </message>
  <message name="Test_calcularMTMSwapResponse">
   <part element="tns:calcularMTMSwapResponse" name="calcularMTMSwapResponse"/>
@@ -84,6 +102,12 @@
   <operation name="calcularMTMSwap" parameterOrder="calcularMTMSwap">
    <input message="tns:Test_calcularMTMSwap"/>
    <output message="tns:Test_calcularMTMSwapResponse"/>
+   <fault message="tns:Exception" name="Exception"/>
+   <fault message="tns:ParseException" name="ParseException"/>
+  </operation>
+  <operation name="testSuma1Dia" parameterOrder="testSuma1Dia">
+   <input message="tns:Test_testSuma1Dia"/>
+   <output message="tns:Test_testSuma1DiaResponse"/>
    <fault message="tns:Exception" name="Exception"/>
    <fault message="tns:ParseException" name="ParseException"/>
   </operation>
@@ -106,6 +130,21 @@
    </fault>
   </operation>
   <operation name="calcularMTMSwap">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body use="literal"/>
+   </input>
+   <output>
+    <soap:body use="literal"/>
+   </output>
+   <fault name="Exception">
+    <soap:fault name="Exception" use="literal"/>
+   </fault>
+   <fault name="ParseException">
+    <soap:fault name="ParseException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="testSuma1Dia">
    <soap:operation soapAction=""/>
    <input>
     <soap:body use="literal"/>
