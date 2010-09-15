@@ -25,8 +25,8 @@ public interface Test {
      * @param arg0
      * @return
      *     returns java.util.List<client.ws.rytsa.NovedadesValuacionesRequestData>
-     * @throws Exception_Exception
      * @throws ParseException_Exception
+     * @throws Exception_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
@@ -43,14 +43,32 @@ public interface Test {
      * @param arg0
      * @return
      *     returns java.util.List<client.ws.rytsa.NovedadesValuacionesRequestData>
-     * @throws Exception_Exception
      * @throws ParseException_Exception
+     * @throws Exception_Exception
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "calcularMTMSwap", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.CalcularMTMSwap")
     @ResponseWrapper(localName = "calcularMTMSwapResponse", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.CalcularMTMSwapResponse")
     public List<NovedadesValuacionesRequestData> calcularMTMSwap(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0)
+        throws Exception_Exception, ParseException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     * @throws ParseException_Exception
+     * @throws Exception_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "testSuma1Dia", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.TestSuma1Dia")
+    @ResponseWrapper(localName = "testSuma1DiaResponse", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.TestSuma1DiaResponse")
+    public String testSuma1Dia(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0)
         throws Exception_Exception, ParseException_Exception
