@@ -8,7 +8,9 @@
    <xs:element name="calcularMTMSwap" type="tns:calcularMTMSwap"/>
    <xs:element name="calcularMTMSwapResponse" type="tns:calcularMTMSwapResponse"/>
    <xs:complexType name="calcularMTMSwap">
-    <xs:sequence/>
+    <xs:sequence>
+     <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
    </xs:complexType>
    <xs:complexType name="calcularMTMSwapResponse">
     <xs:sequence>
@@ -43,7 +45,9 @@
     </xs:sequence>
    </xs:complexType>
    <xs:complexType name="calcularMTMNdf">
-    <xs:sequence/>
+    <xs:sequence>
+     <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
    </xs:complexType>
    <xs:complexType name="calcularMTMNdfResponse">
     <xs:sequence>
