@@ -15,7 +15,7 @@ import javax.xml.ws.WebServiceClient;
  * Generated source version: 2.0
  * 
  */
-@WebServiceClient(name = "TestService", targetNamespace = "http://valuaciones.itau.rytsa/", wsdlLocation = "file:/C:/Desarrollo/LABS/jboss-4.2.3.GA/bin/ItauMTM.wsdl")
+@WebServiceClient(name = "TestService", targetNamespace = "http://valuaciones.itau.rytsa/", wsdlLocation = "ItauMTM.wsdl")
 public class TestService
     extends Service
 {
@@ -25,7 +25,7 @@ public class TestService
     static {
         URL url = null;
         try {
-            url = new URL("file:/C:/Desarrollo/LABS/jboss-4.2.3.GA/bin/ItauMTM.wsdl");
+            url = new URL("http://localhost:8080/ItauMTM/ItauMTM?wsdl");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
