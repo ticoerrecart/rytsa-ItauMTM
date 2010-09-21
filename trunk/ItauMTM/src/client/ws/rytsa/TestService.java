@@ -20,17 +20,7 @@ public class TestService
     extends Service
 {
 
-    private final static URL TESTSERVICE_WSDL_LOCATION;
-
-    static {
-        URL url = null;
-        try {
-            url = new URL("http://localhost:8080/ItauMTM/ItauMTM?wsdl");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        TESTSERVICE_WSDL_LOCATION = url;
-    }
+    public  static URL TESTSERVICE_WSDL_LOCATION = null;
 
     public TestService(URL wsdlLocation, QName serviceName) {
         super(wsdlLocation, serviceName);

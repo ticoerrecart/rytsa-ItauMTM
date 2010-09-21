@@ -2,6 +2,7 @@ package rytsa.itau.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -39,11 +40,16 @@ public class ConsumirWS extends HttpServlet {
 
 		String metodo = request.getParameter("metodo");
 		String fecha = request.getParameter("Fecha");
+		
+		String path = request.getContextPath();
+		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+		
+		
+		TestService.TESTSERVICE_WSDL_LOCATION = new URL(basePath + "ItauMTM?wsdl");
+		TestService ts = new TestService();
 		if (metodo.equalsIgnoreCase("NDF")){
 			try {	
-				TestService ts = new TestService();
 				Test t = ts.getTestPort();
-				
 				List<NovedadesValuacionesRequestData> t2 = t.calcularMTMNdf(fecha);
 				StringBuffer salida = new StringBuffer();
 				for (NovedadesValuacionesRequestData novedadesValuacionesRequestData : t2) {
@@ -62,9 +68,7 @@ public class ConsumirWS extends HttpServlet {
 			if (metodo.equalsIgnoreCase("SWAP")) {
 			
 				try {	
-					TestService ts = new TestService();
 					Test t = ts.getTestPort();
-					
 					List<NovedadesValuacionesRequestData> t2 = t.calcularMTMSwap(fecha);
 					StringBuffer salida = new StringBuffer();
 					for (NovedadesValuacionesRequestData novedadesValuacionesRequestData : t2) {
@@ -81,7 +85,6 @@ public class ConsumirWS extends HttpServlet {
 				}
 			} else {
 				try {	
-					TestService ts = new TestService();
 					Test t = ts.getTestPort();
 					
 					String salida= t.testSuma1Dia(fecha);
