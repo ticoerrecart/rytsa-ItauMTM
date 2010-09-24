@@ -1,0 +1,2245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateUsuarios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="beUsuarios" type="tns:BEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BEUsuarios">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEWithID">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SegmentosSecundarios" nillable="true" type="tns:ArrayOfBEWithFK" />
+              <s:element minOccurs="0" maxOccurs="1" name="UltimaActualizacion" type="s:base64Binary" />
+              <s:element minOccurs="1" maxOccurs="1" name="RolesUsuario" nillable="true" type="tns:ArrayOfBEWithFK" />
+            </s:sequence>
+            <s:attribute name="NoControlarInactividad" type="s:boolean" use="required" />
+            <s:attribute name="Idsucursal" type="s:long" use="required" />
+            <s:attribute name="DescripcionSucursal" type="s:string" />
+            <s:attribute name="UserName" type="s:string" />
+            <s:attribute name="Nombre" type="s:string" />
+            <s:attribute name="Pass" type="s:string" />
+            <s:attribute name="Expiracion" type="s:dateTime" use="required" />
+            <s:attribute name="FechaBaja" type="s:dateTime" use="required" />
+            <s:attribute name="CantidadIntentosMaximo" type="s:int" use="required" />
+            <s:attribute name="ModificarPass" type="s:boolean" use="required" />
+            <s:attribute name="Bloqueado" type="s:boolean" use="required" />
+            <s:attribute name="Proceso" type="s:boolean" use="required" />
+            <s:attribute name="UltimaModificacionPassword" type="s:dateTime" use="required" />
+            <s:attribute name="Ultimologinexitoso" type="s:dateTime" use="required" />
+            <s:attribute name="Idsegmento" type="s:long" use="required" />
+            <s:attribute name="DescripcionSegmento" type="s:string" />
+            <s:attribute name="IdParticipante" type="s:long" use="required" />
+            <s:attribute name="IdTipoParticipante" type="tns:TipoParticipante" use="required" />
+            <s:attribute name="NombreParticipante" type="s:string" />
+            <s:attribute name="NroClienteParticipante" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BEWithID">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEBase">
+            <s:attribute name="ID" type="s:long" use="required" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BEBase" />
+      <s:complexType name="BEWithFK">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEWithID">
+            <s:attribute name="FK" type="s:long" use="required" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfBEWithFK">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BEWithFK" nillable="true" type="tns:BEWithFK" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TipoParticipante">
+        <s:restriction base="s:string">
+          <s:enumeration value="NONE_PARTICIPANTE" />
+          <s:enumeration value="CARTERAPROPIA" />
+          <s:enumeration value="AGENTE" />
+          <s:enumeration value="CLIENTE" />
+          <s:enumeration value="DEPOSITARIA" />
+          <s:enumeration value="CUSTODIO" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateUsuariosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beUsuarios" type="tns:BEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BEEstado">
+        <s:attribute name="Codigo" type="s:string" />
+        <s:attribute name="Tipo" type="tns:TipoEstado" use="required" />
+        <s:attribute name="Descripcion" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="TipoEstado">
+        <s:restriction base="s:string">
+          <s:enumeration value="INFORMATION" />
+          <s:enumeration value="WARNING" />
+          <s:enumeration value="ERROR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="UpdateUsuarios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="beOriginal" type="tns:BEUsuarios" />
+            <s:element minOccurs="0" maxOccurs="1" name="beNueva" type="tns:BEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateUsuariosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beNueva" type="tns:BEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUsuarios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="beUsuarios" type="tns:BEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteUsuariosResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDUsuarios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetByIDUsuariosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllUsuarios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllUsuariosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBEUsuarios">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BEUsuarios" nillable="true" type="tns:BEUsuarios" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetByIDPermisos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAccion" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDPermisosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetByIDPermisosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="bePermisos" type="tns:BEPermisos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BEPermisos">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEBase">
+            <s:attribute name="IdUsuario" type="s:long" use="required" />
+            <s:attribute name="IdAccion" type="s:long" use="required" />
+            <s:attribute name="Permiso" type="s:int" use="required" />
+            <s:attribute name="DobleControl" type="s:boolean" use="required" />
+            <s:attribute name="AdministraSistema" type="s:boolean" use="required" />
+            <s:attribute name="IdAplicacion" type="s:int" use="required" />
+            <s:attribute name="Descripcion" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetAllPermisosDescrip">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAplicacion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllPermisosDescripResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllPermisosDescripResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEPermisos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBEPermisos">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BEPermisos" nillable="true" type="tns:BEPermisos" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllPermisos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAplicacion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllPermisosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllPermisosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEPermisos" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLookUpUsuarios">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLookUpUsuariosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllLookUpUsuariosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetClave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="nuevaClave" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nuevaClaveVerificacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetClaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResetClaveResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsuarioLocal">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsuarioLocalResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUsuarioLocalResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEUsuarios" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PuedeAprobarAutomaticamente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAccion" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PuedeAprobarAutomaticamenteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PuedeAprobarAutomaticamenteResult" type="tns:BEEstado" />
+            <s:element minOccurs="1" maxOccurs="1" name="valido" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KickOff">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idSesionKickoff" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="KickOffResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="KickOffResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginSesion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Ip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="beSesiones" type="tns:BESesiones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BESesiones">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEBase">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UltimaActualizacion" type="s:base64Binary" />
+            </s:sequence>
+            <s:attribute name="ID" type="s1:guid" use="required" />
+            <s:attribute name="IdUsuario" type="s:long" use="required" />
+            <s:attribute name="Ip" type="s:string" />
+            <s:attribute name="FechaInicio" type="s:dateTime" use="required" />
+            <s:attribute name="FechaFinalizacion" type="s:dateTime" use="required" />
+            <s:attribute name="IdAplicacion" type="s:int" use="required" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="LoginSesionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginSesionResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beSesiones" type="tns:BESesiones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserAuthInfo" type="tns:UserAuthInfo" />
+      <s:complexType name="UserAuthInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IP" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ChangeClave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IdSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="anterior" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nueva" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nuevaVerificacion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeClaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeClaveResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Logout">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogoutResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultaSesiones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idUsuario" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAplicacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipo" type="tns:TipoSesion" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoSesion">
+        <s:restriction base="s:string">
+          <s:enumeration value="TODAS_SESIONES" />
+          <s:enumeration value="SOLO_ACTIVAS" />
+          <s:enumeration value="SOLO_CERRADAS_LOGOUT" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ConsultaSesionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultaSesionesResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBESesiones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBESesiones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BESesiones" nillable="true" type="tns:BESesiones" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateAccionRol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="beAccionRol" type="tns:BEAccionRol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BEAccionRol">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEWithID">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UltimaActualizacion" type="s:base64Binary" />
+            </s:sequence>
+            <s:attribute name="IdRol" type="s:long" use="required" />
+            <s:attribute name="IdAccion" type="s:long" use="required" />
+            <s:attribute name="Permiso" type="s:int" use="required" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateAccionRolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateAccionRolResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beAccionRol" type="tns:BEAccionRol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateAccionRol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="beOriginal" type="tns:BEAccionRol" />
+            <s:element minOccurs="0" maxOccurs="1" name="beNueva" type="tns:BEAccionRol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateAccionRolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateAccionRolResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beNueva" type="tns:BEAccionRol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAccionRol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="beAccionRol" type="tns:BEAccionRol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteAccionRolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteAccionRolResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDAccionRol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAccionRol" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDAccionRolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetByIDAccionRolResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BEAccionRol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllAccionRol">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllAccionRolResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllAccionRolResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEAccionRol" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBEAccionRol">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BEAccionRol" nillable="true" type="tns:BEAccionRol" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AuthorizeAccion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="idAccion" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="permisoRequerido" type="tns:TipoPermiso" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoPermiso">
+        <s:restriction base="s:string">
+          <s:enumeration value="CONSULTA" />
+          <s:enumeration value="SALIDAS" />
+          <s:enumeration value="MODIFICACION" />
+          <s:enumeration value="BAJA" />
+          <s:enumeration value="ALTA" />
+          <s:enumeration value="SUPERVISION" />
+          <s:enumeration value="IMPORTACION" />
+          <s:enumeration value="APROBACION_AUTOMATICA" />
+          <s:enumeration value="EJECUCION" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="AuthorizeAccionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AuthorizeAccionResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllAcciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipo" type="tns:TipoAccion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="TipoAccion">
+        <s:restriction base="s:string">
+          <s:enumeration value="TODAS" />
+          <s:enumeration value="NO_INTERNAS" />
+          <s:enumeration value="INTERNAS" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetAllAccionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllAccionesResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEAcciones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBEAcciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BEAcciones" nillable="true" type="tns:BEAcciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BEAcciones">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEWithID">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UltimaActualizacion" type="s:base64Binary" />
+            </s:sequence>
+            <s:attribute name="IdAccion_Padre" type="s:long" use="required" />
+            <s:attribute name="Descripcion" type="s:string" />
+            <s:attribute name="HabilitarPermisos" type="s:int" use="required" />
+            <s:attribute name="TablaOrigen" type="s:string" />
+            <s:attribute name="DobleControl" type="s:boolean" use="required" />
+            <s:attribute name="AdministraSistema" type="s:boolean" use="required" />
+            <s:attribute name="Interna" type="s:boolean" use="required" />
+            <s:attribute name="IdAplicacion" type="s:int" use="required" />
+            <s:attribute name="Tipo_Configuracion" type="s:int" use="required" />
+            <s:attribute name="URLWebForm" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SetConfiguracionseguridad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BEConfiguracionseguridad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BEConfiguracionseguridad">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEWithID">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UltimaActualizacion" type="s:base64Binary" />
+            </s:sequence>
+            <s:attribute name="TimeOutExtensionSesion" type="s:int" use="required" />
+            <s:attribute name="TimeOutInicialSesion" type="s:int" use="required" />
+            <s:attribute name="CantidadPasswordsHistoricas" type="s:int" use="required" />
+            <s:attribute name="DiasCambioPassword" type="s:int" use="required" />
+            <s:attribute name="CantidadIntentosMaximo" type="s:int" use="required" />
+            <s:attribute name="CantidadAlfabeticosPassword" type="s:int" use="required" />
+            <s:attribute name="CantidadNumericosPassword" type="s:int" use="required" />
+            <s:attribute name="ConsideraCantidadCaracteres" type="s:boolean" use="required" />
+            <s:attribute name="ConsideraMinimoLargoPassword" type="s:boolean" use="required" />
+            <s:attribute name="CantidadMinimoLargoPassword" type="s:int" use="required" />
+            <s:attribute name="ConsideraMaxCantCaractConsec" type="s:boolean" use="required" />
+            <s:attribute name="CantidadMaxCaractConsec" type="s:int" use="required" />
+            <s:attribute name="Maximodiasinactividad" type="s:int" use="required" />
+            <s:attribute name="Tipologin" type="tns:TipoLogin" use="required" />
+            <s:attribute name="TimeOutAplicacion" type="s:int" use="required" />
+            <s:attribute name="MaximaAntiguedadSesiones" type="s:int" use="required" />
+            <s:attribute name="Usuarioinvalidopassword" type="s:boolean" use="required" />
+            <s:attribute name="MuestraBannerLogin" type="s:boolean" use="required" />
+            <s:attribute name="BannerLogin" type="s:string" />
+            <s:attribute name="TipoUsuarioLogin" type="tns:TipoUsuarioLogin" use="required" />
+            <s:attribute name="Muestraultimosintentoslogin" type="s:int" use="required" />
+            <s:attribute name="Muestraultimoslogininicio" type="s:boolean" use="required" />
+            <s:attribute name="Consideracambiopassusuarioproc" type="s:boolean" use="required" />
+            <s:attribute name="CantidadMayusculasPassword" type="s:int" use="required" />
+            <s:attribute name="CantidadMinusculasPassword" type="s:int" use="required" />
+            <s:attribute name="CantidadSimbolosPassword" type="s:int" use="required" />
+            <s:attribute name="URLSesionExpirada" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="TipoLogin">
+        <s:restriction base="s:string">
+          <s:enumeration value="SIN_RESTRICCIONES" />
+          <s:enumeration value="UNICO_POR_APLICACION" />
+          <s:enumeration value="UNICO_POR_SISTEMA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TipoUsuarioLogin">
+        <s:restriction base="s:string">
+          <s:enumeration value="VALIDA_USUARIO_PASSWORD" />
+          <s:enumeration value="VALIDA_USUARIO" />
+          <s:enumeration value="OPCION2" />
+          <s:enumeration value="OPCION3" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SetConfiguracionseguridadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SetConfiguracionseguridadResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BEConfiguracionseguridad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConfiguracionseguridad">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetConfiguracionseguridadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetConfiguracionseguridadResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BEConfiguracionseguridad" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllAplicaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllAplicacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllAplicacionesResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBEAplicaciones" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBEAplicaciones">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BEAplicaciones" nillable="true" type="tns:BEAplicaciones" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BEAplicaciones">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEWithID">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UltimaActualizacion" type="s:base64Binary" />
+            </s:sequence>
+            <s:attribute name="Descripcion" type="s:string" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetAllLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdAplicacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Categoria" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fecha_Ini" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fecha_Fin" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConsiderarHoras" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllLogResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBELog" />
+            <s:element minOccurs="1" maxOccurs="1" name="totalrecord" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBELog">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BELog" nillable="true" type="tns:BELog" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BELog">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BEWithID">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UltimaActualizacion" type="s:base64Binary" />
+            </s:sequence>
+            <s:attribute name="Codigo" type="s:string" />
+            <s:attribute name="Tipo" type="tns:TipoLog" use="required" />
+            <s:attribute name="Categoria" type="s:string" />
+            <s:attribute name="Fecha" type="s:dateTime" use="required" />
+            <s:attribute name="Origen" type="s:string" />
+            <s:attribute name="IdUsuario" type="s:long" use="required" />
+            <s:attribute name="Ip" type="s:string" />
+            <s:attribute name="TipoDescripcion" type="tns:TipoDescripcion" use="required" />
+            <s:attribute name="Descripcion" type="s:string" />
+            <s:attribute name="IdAplicacion" type="s:int" use="required" />
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="TipoLog">
+        <s:restriction base="s:string">
+          <s:enumeration value="INFORMATION" />
+          <s:enumeration value="WARNING" />
+          <s:enumeration value="ERROR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="TipoDescripcion">
+        <s:restriction base="s:string">
+          <s:enumeration value="DESC_TEXTO" />
+          <s:enumeration value="DESC_XML" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetAllLogTestigos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="lastRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="maxRecord" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdAplicacion" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="IdUsuario" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="Tipo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Categoria" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fecha_Ini" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="Fecha_Fin" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="Ip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ConsiderarHoras" type="s:short" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLogTestigosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllLogTestigosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBELog" />
+            <s:element minOccurs="1" maxOccurs="1" name="totalrecord" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDLogTestigos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDLogTestigosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetByIDLogTestigosResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BELog" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetByIDLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetByIDLogResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="be" type="tns:BELog" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUltimosAccesosAlSistema">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUltimosAccesosAlSistemaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUltimosAccesosAlSistemaResult" type="tns:BEEstado" />
+            <s:element minOccurs="0" maxOccurs="1" name="beArray" type="tns:ArrayOfBELog" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarBELog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="beLog" type="tns:BELog" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarBELogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarBELogResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Enviar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="aplicacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipo" type="tns:TipoLog" />
+            <s:element minOccurs="0" maxOccurs="1" name="categoria" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="origen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoDescripcion" type="tns:TipoDescripcion" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="aplicacion" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipo" type="tns:TipoLog" />
+            <s:element minOccurs="0" maxOccurs="1" name="categoria" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fecha" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="origen" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ip" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="tipoDescripcion" type="tns:TipoDescripcion" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarLogResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDACConfiguraciones">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDACConfiguracionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDACConfiguracionesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckCompatibilidadVersionCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Idaplicacion" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="VersionCliente" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckCompatibilidadVersionClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckCompatibilidadVersionClienteResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogTest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Ip" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogTestResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="BEEstado" nillable="true" type="tns:BEEstado" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="CreateUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="DeleteUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetByIDUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetByIDUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="GetAllUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDPermisosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetByIDPermisos" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDPermisosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetByIDPermisosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllPermisosDescripSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllPermisosDescrip" />
+  </wsdl:message>
+  <wsdl:message name="GetAllPermisosDescripSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllPermisosDescripResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllPermisosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllPermisos" />
+  </wsdl:message>
+  <wsdl:message name="GetAllPermisosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllPermisosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLookUpUsuariosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllLookUpUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLookUpUsuariosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllLookUpUsuariosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetClaveSoapIn">
+    <wsdl:part name="parameters" element="tns:ResetClave" />
+  </wsdl:message>
+  <wsdl:message name="ResetClaveSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetClaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuarioLocalSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLocal" />
+  </wsdl:message>
+  <wsdl:message name="GetUsuarioLocalSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUsuarioLocalResponse" />
+  </wsdl:message>
+  <wsdl:message name="PuedeAprobarAutomaticamenteSoapIn">
+    <wsdl:part name="parameters" element="tns:PuedeAprobarAutomaticamente" />
+  </wsdl:message>
+  <wsdl:message name="PuedeAprobarAutomaticamenteSoapOut">
+    <wsdl:part name="parameters" element="tns:PuedeAprobarAutomaticamenteResponse" />
+  </wsdl:message>
+  <wsdl:message name="KickOffSoapIn">
+    <wsdl:part name="parameters" element="tns:KickOff" />
+  </wsdl:message>
+  <wsdl:message name="KickOffSoapOut">
+    <wsdl:part name="parameters" element="tns:KickOffResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSesionSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginSesion" />
+  </wsdl:message>
+  <wsdl:message name="LoginSesionSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginSesionResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginSesionUserAuthInfo">
+    <wsdl:part name="UserAuthInfo" element="tns:UserAuthInfo" />
+  </wsdl:message>
+  <wsdl:message name="ChangeClaveSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeClave" />
+  </wsdl:message>
+  <wsdl:message name="ChangeClaveSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeClaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapIn">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="LogoutSoapOut">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaSesionesSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultaSesiones" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaSesionesSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultaSesionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateAccionRolSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateAccionRol" />
+  </wsdl:message>
+  <wsdl:message name="CreateAccionRolSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateAccionRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAccionRolSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateAccionRol" />
+  </wsdl:message>
+  <wsdl:message name="UpdateAccionRolSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateAccionRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAccionRolSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteAccionRol" />
+  </wsdl:message>
+  <wsdl:message name="DeleteAccionRolSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteAccionRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDAccionRolSoapIn">
+    <wsdl:part name="parameters" element="tns:GetByIDAccionRol" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDAccionRolSoapOut">
+    <wsdl:part name="parameters" element="tns:GetByIDAccionRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAccionRolSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllAccionRol" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAccionRolSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllAccionRolResponse" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeAccionSoapIn">
+    <wsdl:part name="parameters" element="tns:AuthorizeAccion" />
+  </wsdl:message>
+  <wsdl:message name="AuthorizeAccionSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthorizeAccionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAccionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllAcciones" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAccionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllAccionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetConfiguracionseguridadSoapIn">
+    <wsdl:part name="parameters" element="tns:SetConfiguracionseguridad" />
+  </wsdl:message>
+  <wsdl:message name="SetConfiguracionseguridadSoapOut">
+    <wsdl:part name="parameters" element="tns:SetConfiguracionseguridadResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConfiguracionseguridadSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionseguridad" />
+  </wsdl:message>
+  <wsdl:message name="GetConfiguracionseguridadSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionseguridadResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAplicacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllAplicaciones" />
+  </wsdl:message>
+  <wsdl:message name="GetAllAplicacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllAplicacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllLog" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLogTestigosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllLogTestigos" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLogTestigosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllLogTestigosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDLogTestigosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetByIDLogTestigos" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDLogTestigosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetByIDLogTestigosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDLogSoapIn">
+    <wsdl:part name="parameters" element="tns:GetByIDLog" />
+  </wsdl:message>
+  <wsdl:message name="GetByIDLogSoapOut">
+    <wsdl:part name="parameters" element="tns:GetByIDLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUltimosAccesosAlSistemaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUltimosAccesosAlSistema" />
+  </wsdl:message>
+  <wsdl:message name="GetUltimosAccesosAlSistemaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUltimosAccesosAlSistemaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarBELogSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarBELog" />
+  </wsdl:message>
+  <wsdl:message name="EnviarBELogSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarBELogResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarSoapIn">
+    <wsdl:part name="parameters" element="tns:Enviar" />
+  </wsdl:message>
+  <wsdl:message name="EnviarSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarLogSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarLog" />
+  </wsdl:message>
+  <wsdl:message name="EnviarLogSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDACConfiguracionesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDACConfiguraciones" />
+  </wsdl:message>
+  <wsdl:message name="GetDACConfiguracionesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDACConfiguracionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompatibilidadVersionClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckCompatibilidadVersionCliente" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompatibilidadVersionClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckCompatibilidadVersionClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogTestSoapIn">
+    <wsdl:part name="parameters" element="tns:LogTest" />
+  </wsdl:message>
+  <wsdl:message name="LogTestSoapOut">
+    <wsdl:part name="parameters" element="tns:LogTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionHttpGetIn" />
+  <wsdl:message name="GetVersionHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDACConfiguracionesHttpGetIn" />
+  <wsdl:message name="GetDACConfiguracionesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompatibilidadVersionClienteHttpGetIn">
+    <wsdl:part name="Idaplicacion" type="s:string" />
+    <wsdl:part name="VersionCliente" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompatibilidadVersionClienteHttpGetOut">
+    <wsdl:part name="Body" element="tns:BEEstado" />
+  </wsdl:message>
+  <wsdl:message name="LogTestHttpGetIn">
+    <wsdl:part name="Ip" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogTestHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionHttpPostIn" />
+  <wsdl:message name="GetVersionHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDACConfiguracionesHttpPostIn" />
+  <wsdl:message name="GetDACConfiguracionesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompatibilidadVersionClienteHttpPostIn">
+    <wsdl:part name="Idaplicacion" type="s:string" />
+    <wsdl:part name="VersionCliente" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CheckCompatibilidadVersionClienteHttpPostOut">
+    <wsdl:part name="Body" element="tns:BEEstado" />
+  </wsdl:message>
+  <wsdl:message name="LogTestHttpPostIn">
+    <wsdl:part name="Ip" type="s:string" />
+    <wsdl:part name="UserName" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LogTestHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="WSSeguridadSoap">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsuarios">
+      <wsdl:input message="tns:CreateUsuariosSoapIn" />
+      <wsdl:output message="tns:CreateUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarios">
+      <wsdl:input message="tns:UpdateUsuariosSoapIn" />
+      <wsdl:output message="tns:UpdateUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsuarios">
+      <wsdl:input message="tns:DeleteUsuariosSoapIn" />
+      <wsdl:output message="tns:DeleteUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDUsuarios">
+      <wsdl:input message="tns:GetByIDUsuariosSoapIn" />
+      <wsdl:output message="tns:GetByIDUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsuarios">
+      <wsdl:input message="tns:GetAllUsuariosSoapIn" />
+      <wsdl:output message="tns:GetAllUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDPermisos">
+      <wsdl:input message="tns:GetByIDPermisosSoapIn" />
+      <wsdl:output message="tns:GetByIDPermisosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPermisosDescrip">
+      <wsdl:input message="tns:GetAllPermisosDescripSoapIn" />
+      <wsdl:output message="tns:GetAllPermisosDescripSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPermisos">
+      <wsdl:input message="tns:GetAllPermisosSoapIn" />
+      <wsdl:output message="tns:GetAllPermisosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLookUpUsuarios">
+      <wsdl:input message="tns:GetAllLookUpUsuariosSoapIn" />
+      <wsdl:output message="tns:GetAllLookUpUsuariosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetClave">
+      <wsdl:input message="tns:ResetClaveSoapIn" />
+      <wsdl:output message="tns:ResetClaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioLocal">
+      <wsdl:input message="tns:GetUsuarioLocalSoapIn" />
+      <wsdl:output message="tns:GetUsuarioLocalSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PuedeAprobarAutomaticamente">
+      <wsdl:input message="tns:PuedeAprobarAutomaticamenteSoapIn" />
+      <wsdl:output message="tns:PuedeAprobarAutomaticamenteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="KickOff">
+      <wsdl:input message="tns:KickOffSoapIn" />
+      <wsdl:output message="tns:KickOffSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginSesion">
+      <wsdl:input message="tns:LoginSesionSoapIn" />
+      <wsdl:output message="tns:LoginSesionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeClave">
+      <wsdl:input message="tns:ChangeClaveSoapIn" />
+      <wsdl:output message="tns:ChangeClaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input message="tns:LogoutSoapIn" />
+      <wsdl:output message="tns:LogoutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaSesiones">
+      <wsdl:input message="tns:ConsultaSesionesSoapIn" />
+      <wsdl:output message="tns:ConsultaSesionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateAccionRol">
+      <wsdl:input message="tns:CreateAccionRolSoapIn" />
+      <wsdl:output message="tns:CreateAccionRolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccionRol">
+      <wsdl:input message="tns:UpdateAccionRolSoapIn" />
+      <wsdl:output message="tns:UpdateAccionRolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccionRol">
+      <wsdl:input message="tns:DeleteAccionRolSoapIn" />
+      <wsdl:output message="tns:DeleteAccionRolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDAccionRol">
+      <wsdl:input message="tns:GetByIDAccionRolSoapIn" />
+      <wsdl:output message="tns:GetByIDAccionRolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccionRol">
+      <wsdl:input message="tns:GetAllAccionRolSoapIn" />
+      <wsdl:output message="tns:GetAllAccionRolSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AuthorizeAccion">
+      <wsdl:input message="tns:AuthorizeAccionSoapIn" />
+      <wsdl:output message="tns:AuthorizeAccionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAcciones">
+      <wsdl:input message="tns:GetAllAccionesSoapIn" />
+      <wsdl:output message="tns:GetAllAccionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetConfiguracionseguridad">
+      <wsdl:input message="tns:SetConfiguracionseguridadSoapIn" />
+      <wsdl:output message="tns:SetConfiguracionseguridadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionseguridad">
+      <wsdl:input message="tns:GetConfiguracionseguridadSoapIn" />
+      <wsdl:output message="tns:GetConfiguracionseguridadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAplicaciones">
+      <wsdl:input message="tns:GetAllAplicacionesSoapIn" />
+      <wsdl:output message="tns:GetAllAplicacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLog">
+      <wsdl:input message="tns:GetAllLogSoapIn" />
+      <wsdl:output message="tns:GetAllLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLogTestigos">
+      <wsdl:input message="tns:GetAllLogTestigosSoapIn" />
+      <wsdl:output message="tns:GetAllLogTestigosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDLogTestigos">
+      <wsdl:input message="tns:GetByIDLogTestigosSoapIn" />
+      <wsdl:output message="tns:GetByIDLogTestigosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDLog">
+      <wsdl:input message="tns:GetByIDLogSoapIn" />
+      <wsdl:output message="tns:GetByIDLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimosAccesosAlSistema">
+      <wsdl:input message="tns:GetUltimosAccesosAlSistemaSoapIn" />
+      <wsdl:output message="tns:GetUltimosAccesosAlSistemaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarBELog">
+      <wsdl:input message="tns:EnviarBELogSoapIn" />
+      <wsdl:output message="tns:EnviarBELogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Enviar">
+      <wsdl:input message="tns:EnviarSoapIn" />
+      <wsdl:output message="tns:EnviarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarLog">
+      <wsdl:input message="tns:EnviarLogSoapIn" />
+      <wsdl:output message="tns:EnviarLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDACConfiguraciones">
+      <wsdl:input message="tns:GetDACConfiguracionesSoapIn" />
+      <wsdl:output message="tns:GetDACConfiguracionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompatibilidadVersionCliente">
+      <wsdl:input message="tns:CheckCompatibilidadVersionClienteSoapIn" />
+      <wsdl:output message="tns:CheckCompatibilidadVersionClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogTest">
+      <wsdl:input message="tns:LogTestSoapIn" />
+      <wsdl:output message="tns:LogTestSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WSSeguridadHttpGet">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionHttpGetIn" />
+      <wsdl:output message="tns:GetVersionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDACConfiguraciones">
+      <wsdl:input message="tns:GetDACConfiguracionesHttpGetIn" />
+      <wsdl:output message="tns:GetDACConfiguracionesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompatibilidadVersionCliente">
+      <wsdl:input message="tns:CheckCompatibilidadVersionClienteHttpGetIn" />
+      <wsdl:output message="tns:CheckCompatibilidadVersionClienteHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogTest">
+      <wsdl:input message="tns:LogTestHttpGetIn" />
+      <wsdl:output message="tns:LogTestHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WSSeguridadHttpPost">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionHttpPostIn" />
+      <wsdl:output message="tns:GetVersionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDACConfiguraciones">
+      <wsdl:input message="tns:GetDACConfiguracionesHttpPostIn" />
+      <wsdl:output message="tns:GetDACConfiguracionesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompatibilidadVersionCliente">
+      <wsdl:input message="tns:CheckCompatibilidadVersionClienteHttpPostIn" />
+      <wsdl:output message="tns:CheckCompatibilidadVersionClienteHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogTest">
+      <wsdl:input message="tns:LogTestHttpPostIn" />
+      <wsdl:output message="tns:LogTestHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSSeguridadSoap" type="tns:WSSeguridadSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsuarios">
+      <soap:operation soapAction="http://tempuri.org/CreateUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarios">
+      <soap:operation soapAction="http://tempuri.org/UpdateUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsuarios">
+      <soap:operation soapAction="http://tempuri.org/DeleteUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDUsuarios">
+      <soap:operation soapAction="http://tempuri.org/GetByIDUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsuarios">
+      <soap:operation soapAction="http://tempuri.org/GetAllUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDPermisos">
+      <soap:operation soapAction="http://tempuri.org/GetByIDPermisos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPermisosDescrip">
+      <soap:operation soapAction="http://tempuri.org/GetAllPermisosDescrip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPermisos">
+      <soap:operation soapAction="http://tempuri.org/GetAllPermisos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLookUpUsuarios">
+      <soap:operation soapAction="http://tempuri.org/GetAllLookUpUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetClave">
+      <soap:operation soapAction="http://tempuri.org/ResetClave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioLocal">
+      <soap:operation soapAction="http://tempuri.org/GetUsuarioLocal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PuedeAprobarAutomaticamente">
+      <soap:operation soapAction="http://tempuri.org/PuedeAprobarAutomaticamente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KickOff">
+      <soap:operation soapAction="http://tempuri.org/KickOff" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginSesion">
+      <soap:operation soapAction="http://tempuri.org/LoginSesion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:LoginSesionUserAuthInfo" part="UserAuthInfo" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeClave">
+      <soap:operation soapAction="http://tempuri.org/ChangeClave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaSesiones">
+      <soap:operation soapAction="http://tempuri.org/ConsultaSesiones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateAccionRol">
+      <soap:operation soapAction="http://tempuri.org/CreateAccionRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccionRol">
+      <soap:operation soapAction="http://tempuri.org/UpdateAccionRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccionRol">
+      <soap:operation soapAction="http://tempuri.org/DeleteAccionRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDAccionRol">
+      <soap:operation soapAction="http://tempuri.org/GetByIDAccionRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccionRol">
+      <soap:operation soapAction="http://tempuri.org/GetAllAccionRol" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthorizeAccion">
+      <soap:operation soapAction="http://tempuri.org/AuthorizeAccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAcciones">
+      <soap:operation soapAction="http://tempuri.org/GetAllAcciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetConfiguracionseguridad">
+      <soap:operation soapAction="http://tempuri.org/SetConfiguracionseguridad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionseguridad">
+      <soap:operation soapAction="http://tempuri.org/GetConfiguracionseguridad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAplicaciones">
+      <soap:operation soapAction="http://tempuri.org/GetAllAplicaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLog">
+      <soap:operation soapAction="http://tempuri.org/GetAllLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLogTestigos">
+      <soap:operation soapAction="http://tempuri.org/GetAllLogTestigos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDLogTestigos">
+      <soap:operation soapAction="http://tempuri.org/GetByIDLogTestigos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDLog">
+      <soap:operation soapAction="http://tempuri.org/GetByIDLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimosAccesosAlSistema">
+      <soap:operation soapAction="http://tempuri.org/GetUltimosAccesosAlSistema" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarBELog">
+      <soap:operation soapAction="http://tempuri.org/EnviarBELog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enviar">
+      <soap:operation soapAction="http://tempuri.org/Enviar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarLog">
+      <soap:operation soapAction="http://tempuri.org/EnviarLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDACConfiguraciones">
+      <soap:operation soapAction="http://tempuri.org/GetDACConfiguraciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompatibilidadVersionCliente">
+      <soap:operation soapAction="http://tempuri.org/CheckCompatibilidadVersionCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogTest">
+      <soap:operation soapAction="http://tempuri.org/LogTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSSeguridadSoap12" type="tns:WSSeguridadSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="http://tempuri.org/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUsuarios">
+      <soap12:operation soapAction="http://tempuri.org/CreateUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUsuarios">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsuarios">
+      <soap12:operation soapAction="http://tempuri.org/DeleteUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDUsuarios">
+      <soap12:operation soapAction="http://tempuri.org/GetByIDUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsuarios">
+      <soap12:operation soapAction="http://tempuri.org/GetAllUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDPermisos">
+      <soap12:operation soapAction="http://tempuri.org/GetByIDPermisos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPermisosDescrip">
+      <soap12:operation soapAction="http://tempuri.org/GetAllPermisosDescrip" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPermisos">
+      <soap12:operation soapAction="http://tempuri.org/GetAllPermisos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLookUpUsuarios">
+      <soap12:operation soapAction="http://tempuri.org/GetAllLookUpUsuarios" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetClave">
+      <soap12:operation soapAction="http://tempuri.org/ResetClave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioLocal">
+      <soap12:operation soapAction="http://tempuri.org/GetUsuarioLocal" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PuedeAprobarAutomaticamente">
+      <soap12:operation soapAction="http://tempuri.org/PuedeAprobarAutomaticamente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="KickOff">
+      <soap12:operation soapAction="http://tempuri.org/KickOff" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginSesion">
+      <soap12:operation soapAction="http://tempuri.org/LoginSesion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:LoginSesionUserAuthInfo" part="UserAuthInfo" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeClave">
+      <soap12:operation soapAction="http://tempuri.org/ChangeClave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap12:operation soapAction="http://tempuri.org/Logout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaSesiones">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaSesiones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateAccionRol">
+      <soap12:operation soapAction="http://tempuri.org/CreateAccionRol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccionRol">
+      <soap12:operation soapAction="http://tempuri.org/UpdateAccionRol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccionRol">
+      <soap12:operation soapAction="http://tempuri.org/DeleteAccionRol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDAccionRol">
+      <soap12:operation soapAction="http://tempuri.org/GetByIDAccionRol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAccionRol">
+      <soap12:operation soapAction="http://tempuri.org/GetAllAccionRol" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AuthorizeAccion">
+      <soap12:operation soapAction="http://tempuri.org/AuthorizeAccion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAcciones">
+      <soap12:operation soapAction="http://tempuri.org/GetAllAcciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetConfiguracionseguridad">
+      <soap12:operation soapAction="http://tempuri.org/SetConfiguracionseguridad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionseguridad">
+      <soap12:operation soapAction="http://tempuri.org/GetConfiguracionseguridad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllAplicaciones">
+      <soap12:operation soapAction="http://tempuri.org/GetAllAplicaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLog">
+      <soap12:operation soapAction="http://tempuri.org/GetAllLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLogTestigos">
+      <soap12:operation soapAction="http://tempuri.org/GetAllLogTestigos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDLogTestigos">
+      <soap12:operation soapAction="http://tempuri.org/GetByIDLogTestigos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetByIDLog">
+      <soap12:operation soapAction="http://tempuri.org/GetByIDLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimosAccesosAlSistema">
+      <soap12:operation soapAction="http://tempuri.org/GetUltimosAccesosAlSistema" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarBELog">
+      <soap12:operation soapAction="http://tempuri.org/EnviarBELog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Enviar">
+      <soap12:operation soapAction="http://tempuri.org/Enviar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarLog">
+      <soap12:operation soapAction="http://tempuri.org/EnviarLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDACConfiguraciones">
+      <soap12:operation soapAction="http://tempuri.org/GetDACConfiguraciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompatibilidadVersionCliente">
+      <soap12:operation soapAction="http://tempuri.org/CheckCompatibilidadVersionCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogTest">
+      <soap12:operation soapAction="http://tempuri.org/LogTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSSeguridadHttpGet" type="tns:WSSeguridadHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetVersion">
+      <http:operation location="/GetVersion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDACConfiguraciones">
+      <http:operation location="/GetDACConfiguraciones" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompatibilidadVersionCliente">
+      <http:operation location="/CheckCompatibilidadVersionCliente" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogTest">
+      <http:operation location="/LogTest" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSSeguridadHttpPost" type="tns:WSSeguridadHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetVersion">
+      <http:operation location="/GetVersion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDACConfiguraciones">
+      <http:operation location="/GetDACConfiguraciones" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckCompatibilidadVersionCliente">
+      <http:operation location="/CheckCompatibilidadVersionCliente" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogTest">
+      <http:operation location="/LogTest" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSSeguridad">
+    <wsdl:port name="WSSeguridadSoap" binding="tns:WSSeguridadSoap">
+      <soap:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSSeguridad.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSSeguridadSoap12" binding="tns:WSSeguridadSoap12">
+      <soap12:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSSeguridad.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSSeguridadHttpGet" binding="tns:WSSeguridadHttpGet">
+      <http:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSSeguridad.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSSeguridadHttpPost" binding="tns:WSSeguridadHttpPost">
+      <http:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSSeguridad.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
