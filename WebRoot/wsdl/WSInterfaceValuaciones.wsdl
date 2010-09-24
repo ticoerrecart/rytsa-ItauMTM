@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://api.patron.mae.com.ar/sistemasexternos/itau" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://api.patron.mae.com.ar/sistemasexternos/itau" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://api.patron.mae.com.ar/sistemasexternos/itau">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="GetVersion">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarOperacionesNDFAValuar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:OperacionesNDFAValuarRequestData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OperacionesNDFAValuarRequestData">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ValucionesBaseRequestData" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ValucionesBaseRequestData" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FechaProceso" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RecuperarOperacionesNDFAValuarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarOperacionesNDFAValuarResult" type="tns:ArrayOfOperacionNDFAValuarData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOperacionNDFAValuarData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OperacionNDFAValuarData" nillable="true">
+            <s:complexType>
+              <s:attribute name="NumeroOperacion" type="s:int" use="required" />
+              <s:attribute name="Producto" type="s:string" />
+              <s:attribute name="MetodoFixing" type="s:string" />
+              <s:attribute name="Moneda" type="s:string" />
+              <s:attribute name="MonedaLiquidacion" type="s:string" />
+              <s:attribute name="TipoOperacion" type="s:string" />
+              <s:attribute name="FechaCarga" type="s:dateTime" use="required" />
+              <s:attribute name="FechaInicio" type="s:dateTime" use="required" />
+              <s:attribute name="FechaVencimiento" type="s:dateTime" use="required" />
+              <s:attribute name="Banca" type="s:string" />
+              <s:attribute name="GestorRiesgo" type="s:string" />
+              <s:attribute name="Officer" type="s:string" />
+              <s:attribute name="CliNum" type="s:string" />
+              <s:attribute name="Raiz" type="s:string" />
+              <s:attribute name="Cuit" type="s:string" />
+              <s:attribute name="ContraParte" type="s:string" />
+              <s:attribute name="NumeroBoleto" type="s:int" use="required" />
+              <s:attribute name="CantidadVN" type="s:decimal" use="required" />
+              <s:attribute name="Precio" type="s:decimal" use="required" />
+              <s:attribute name="StrikeRef" type="s:decimal" use="required" />
+              <s:attribute name="RdoTotalContab" type="s:decimal" use="required" />
+              <s:attribute name="RdoMesContab" type="s:decimal" use="required" />
+              <s:attribute name="RdoDiarioContab" type="s:decimal" use="required" />
+              <s:attribute name="Plazo" type="s:int" use="required" />
+              <s:attribute name="Dias" type="s:int" use="required" />
+              <s:attribute name="RdoBBA" type="s:decimal" use="required" />
+              <s:attribute name="RdoBBANoDev" type="s:decimal" use="required" />
+              <s:attribute name="Mercado" type="s:string" />
+              <s:attribute name="Vigentes" type="s:decimal" use="required" />
+              <s:attribute name="Vencidos" type="s:decimal" use="required" />
+              <s:attribute name="ComprasVigentes" type="s:decimal" use="required" />
+              <s:attribute name="VentasVigentes" type="s:decimal" use="required" />
+              <s:attribute name="DevTotal" type="s:decimal" use="required" />
+              <s:attribute name="DevCob" type="s:decimal" use="required" />
+              <s:attribute name="DevPag" type="s:decimal" use="required" />
+              <s:attribute name="IDOperacion" type="s:int" use="required" />
+              <s:attribute name="FechaProceso" type="s:dateTime" use="required" />
+              <s:attribute name="MTM" type="s:decimal" use="required" />
+              <s:attribute name="Cuenta" type="s:string" />
+              <s:attribute name="Sucursal" type="s:string" />
+              <s:attribute name="Spread" type="s:decimal" use="required" />
+              <s:attribute name="Fondeo" type="s:decimal" use="required" />
+              <s:attribute name="FondeoAcumulado" type="s:decimal" use="required" />
+              <s:attribute name="Margen" type="s:decimal" use="required" />
+              <s:attribute name="PlazoResidual" type="s:decimal" use="required" />
+              <s:attribute name="Monto" type="s:decimal" use="required" />
+              <s:attribute name="Gastos" type="s:decimal" use="required" />
+              <s:attribute name="Comisiones" type="s:decimal" use="required" />
+              <s:attribute name="Neto" type="s:decimal" use="required" />
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RecuperarOperacionesSWAPAValuar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:OperacionesSWAPAValuarRequestData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="OperacionesSWAPAValuarRequestData">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:ValucionesBaseRequestData" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="RecuperarOperacionesSWAPAValuarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarOperacionesSWAPAValuarResult" type="tns:ArrayOfOperacionSWAPAValuarData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfOperacionSWAPAValuarData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OperacionSWAPAValuarData" nillable="true">
+            <s:complexType>
+              <s:attribute name="NumeroOperacion" type="s:int" use="required" />
+              <s:attribute name="Producto" type="s:string" />
+              <s:attribute name="Mercado" type="s:string" />
+              <s:attribute name="Instrumento" type="s:string" />
+              <s:attribute name="MetodoFixing" type="s:string" />
+              <s:attribute name="Moneda" type="s:string" />
+              <s:attribute name="BIBAPaga" type="s:string" />
+              <s:attribute name="TasaFija" type="s:decimal" use="required" />
+              <s:attribute name="TasaVariable" type="s:string" />
+              <s:attribute name="MonedaLiquidacion" type="s:string" />
+              <s:attribute name="TipoOperacion" type="s:string" />
+              <s:attribute name="Frecuencia" type="s:int" use="required" />
+              <s:attribute name="FechaCarga" type="s:dateTime" use="required" />
+              <s:attribute name="FechaInicio" type="s:dateTime" use="required" />
+              <s:attribute name="FechaVencimiento" type="s:dateTime" use="required" />
+              <s:attribute name="Banca" type="s:string" />
+              <s:attribute name="GestorRiesgo" type="s:string" />
+              <s:attribute name="Estrategia" type="s:string" />
+              <s:attribute name="Officer" type="s:string" />
+              <s:attribute name="CliNum" type="s:string" />
+              <s:attribute name="Raiz" type="s:string" />
+              <s:attribute name="Cuenta" type="s:string" />
+              <s:attribute name="Sucursal" type="s:string" />
+              <s:attribute name="Cuit" type="s:string" />
+              <s:attribute name="Contraparte" type="s:string" />
+              <s:attribute name="NumeroBoleto" type="s:int" use="required" />
+              <s:attribute name="CantidadVN" type="s:decimal" use="required" />
+              <s:attribute name="Base1" type="s:int" use="required" />
+              <s:attribute name="Base2" type="s:int" use="required" />
+              <s:attribute name="RendimientoUltimoPeriodo" type="s:decimal" use="required" />
+              <s:attribute name="RendimientoTotalHastaFechaActual" type="s:decimal" use="required" />
+              <s:attribute name="SwapVigentesTasaFija" type="s:decimal" use="required" />
+              <s:attribute name="SwapVigentesTasaVariable" type="s:decimal" use="required" />
+              <s:attribute name="Precio" type="s:decimal" use="required" />
+              <s:attribute name="StrikeRef" type="s:decimal" use="required" />
+              <s:attribute name="MTMPayment" type="s:decimal" use="required" />
+              <s:attribute name="MTMReceived" type="s:decimal" use="required" />
+              <s:attribute name="Base" type="s:int" use="required" />
+              <s:attribute name="RolTotalContable" type="s:decimal" use="required" />
+              <s:attribute name="RdoMesContab" type="s:decimal" use="required" />
+              <s:attribute name="RdoDiarioContab" type="s:decimal" use="required" />
+              <s:attribute name="Vigentes" type="s:decimal" use="required" />
+              <s:attribute name="Vencidos" type="s:decimal" use="required" />
+              <s:attribute name="ComprasVigentes" type="s:decimal" use="required" />
+              <s:attribute name="VentasVigentes" type="s:decimal" use="required" />
+              <s:attribute name="DevTotal" type="s:decimal" use="required" />
+              <s:attribute name="DevCob" type="s:decimal" use="required" />
+              <s:attribute name="DevPag" type="s:decimal" use="required" />
+              <s:attribute name="Plazo" type="s:int" use="required" />
+              <s:attribute name="Dias" type="s:string" />
+              <s:attribute name="RdoBBA" type="s:decimal" use="required" />
+              <s:attribute name="RdoBBANoDev" type="s:decimal" use="required" />
+              <s:attribute name="IdOperacion" type="s:int" use="required" />
+              <s:attribute name="FechaProceso" type="s:dateTime" use="required" />
+              <s:attribute name="IdOperacionRelacionada" type="s:int" use="required" />
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InformarNovedadesValuaciones">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:ArrayOfNovedadesValuacionesRequestData" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaProceso" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNovedadesValuacionesRequestData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NovedadesValuacionesRequestData" nillable="true">
+            <s:complexType>
+              <s:attribute name="IdOperacion" type="s:int" use="required" />
+              <s:attribute name="Fecha" type="s:dateTime" use="required" />
+              <s:attribute name="TotalValuado" type="s:decimal" use="required" />
+              <s:attribute name="FechaUltimaValuacion" type="s:dateTime" use="required" />
+              <s:attribute name="IdUsuarioCargaSE" type="s:string" />
+              <s:attribute name="FechaCargaPrecio" type="s:dateTime" use="required" />
+              <s:attribute name="TipoValuacion" type="s:string" />
+              <s:attribute name="MonedaValuacion" type="s:string" />
+              <s:attribute name="Precio" type="s:decimal" use="required" />
+              <s:attribute name="TasaUtilizada" type="s:decimal" use="required" />
+              <s:attribute name="ValoresNominales" type="s:decimal" use="required" />
+              <s:attribute name="Plazo" type="s:int" use="required" />
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InformarNovedadesValuacionesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InformarNovedadesValuacionesResult" type="tns:NovedadesValuacionesResponseData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="NovedadesValuacionesResponseData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="EstadoProceso" type="tns:EstadoProcesoInformarNovedadesValuaciones" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErroresNovedadesValuaciones" type="tns:ArrayOfErrorNovedadValuacionData" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EstadoProcesoInformarNovedadesValuaciones">
+        <s:restriction base="s:string">
+          <s:enumeration value="ProcesadoCompletamente" />
+          <s:enumeration value="ProcesadoParcialmente" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfErrorNovedadValuacionData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErrorNovedadValuacionData" nillable="true" type="tns:ErrorNovedadValuacionData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ErrorNovedadValuacionData">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IdOperacion" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RecuperarAgendaCuponesOperacionesSWAPAValuar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RecuperarAgendaCuponesOperacionesSWAPAValuarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RecuperarAgendaCuponesOperacionesSWAPAValuarResult" type="tns:ArrayOfAgendaCuponOperacioneSWAPAValuarData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAgendaCuponOperacioneSWAPAValuarData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AgendaCuponOperacioneSWAPAValuarData" nillable="true">
+            <s:complexType>
+              <s:attribute name="NumeroOperacion" type="s:int" use="required" />
+              <s:attribute name="IdCupon" type="s:int" use="required" />
+              <s:attribute name="TipoFlujo" type="s:string" />
+              <s:attribute name="ReceivedOPayment" type="s:string" />
+              <s:attribute name="FechaInicio" type="s:dateTime" use="required" />
+              <s:attribute name="FechaVencimiento" type="s:dateTime" use="required" />
+              <s:attribute name="FechaIndiceInicio" type="s:dateTime" use="required" />
+              <s:attribute name="FechaIndiceFin" type="s:dateTime" use="required" />
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GenerarOperacionesSWAPSAValuar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaProceso" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarOperacionesSWAPSAValuarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerarOperacionesSWAPSAValuarResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BEEstado">
+        <s:attribute name="Codigo" type="s:string" />
+        <s:attribute name="Tipo" type="tns:TipoEstado" use="required" />
+        <s:attribute name="Descripcion" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="TipoEstado">
+        <s:restriction base="s:string">
+          <s:enumeration value="INFORMATION" />
+          <s:enumeration value="WARNING" />
+          <s:enumeration value="ERROR" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GenerarOperacionesNDFAValuar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="idSesion" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="fechaProceso" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerarOperacionesNDFAValuarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerarOperacionesNDFAValuarResult" type="tns:BEEstado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarOperacionesNDFAValuarSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarOperacionesNDFAValuar" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarOperacionesNDFAValuarSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarOperacionesNDFAValuarResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarOperacionesSWAPAValuarSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarOperacionesSWAPAValuar" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarOperacionesSWAPAValuarSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarOperacionesSWAPAValuarResponse" />
+  </wsdl:message>
+  <wsdl:message name="InformarNovedadesValuacionesSoapIn">
+    <wsdl:part name="parameters" element="tns:InformarNovedadesValuaciones" />
+  </wsdl:message>
+  <wsdl:message name="InformarNovedadesValuacionesSoapOut">
+    <wsdl:part name="parameters" element="tns:InformarNovedadesValuacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarAgendaCuponesOperacionesSWAPAValuarSoapIn">
+    <wsdl:part name="parameters" element="tns:RecuperarAgendaCuponesOperacionesSWAPAValuar" />
+  </wsdl:message>
+  <wsdl:message name="RecuperarAgendaCuponesOperacionesSWAPAValuarSoapOut">
+    <wsdl:part name="parameters" element="tns:RecuperarAgendaCuponesOperacionesSWAPAValuarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarOperacionesSWAPSAValuarSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarOperacionesSWAPSAValuar" />
+  </wsdl:message>
+  <wsdl:message name="GenerarOperacionesSWAPSAValuarSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarOperacionesSWAPSAValuarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerarOperacionesNDFAValuarSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerarOperacionesNDFAValuar" />
+  </wsdl:message>
+  <wsdl:message name="GenerarOperacionesNDFAValuarSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerarOperacionesNDFAValuarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionHttpGetIn" />
+  <wsdl:message name="GetVersionHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetVersionHttpPostIn" />
+  <wsdl:message name="GetVersionHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="WSValuacionesSoap">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionSoapIn" />
+      <wsdl:output message="tns:GetVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarOperacionesNDFAValuar">
+      <wsdl:input message="tns:RecuperarOperacionesNDFAValuarSoapIn" />
+      <wsdl:output message="tns:RecuperarOperacionesNDFAValuarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarOperacionesSWAPAValuar">
+      <wsdl:input message="tns:RecuperarOperacionesSWAPAValuarSoapIn" />
+      <wsdl:output message="tns:RecuperarOperacionesSWAPAValuarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InformarNovedadesValuaciones">
+      <wsdl:input message="tns:InformarNovedadesValuacionesSoapIn" />
+      <wsdl:output message="tns:InformarNovedadesValuacionesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarAgendaCuponesOperacionesSWAPAValuar">
+      <wsdl:input message="tns:RecuperarAgendaCuponesOperacionesSWAPAValuarSoapIn" />
+      <wsdl:output message="tns:RecuperarAgendaCuponesOperacionesSWAPAValuarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarOperacionesSWAPSAValuar">
+      <wsdl:input message="tns:GenerarOperacionesSWAPSAValuarSoapIn" />
+      <wsdl:output message="tns:GenerarOperacionesSWAPSAValuarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarOperacionesNDFAValuar">
+      <wsdl:input message="tns:GenerarOperacionesNDFAValuarSoapIn" />
+      <wsdl:output message="tns:GenerarOperacionesNDFAValuarSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WSValuacionesHttpGet">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionHttpGetIn" />
+      <wsdl:output message="tns:GetVersionHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WSValuacionesHttpPost">
+    <wsdl:operation name="GetVersion">
+      <wsdl:input message="tns:GetVersionHttpPostIn" />
+      <wsdl:output message="tns:GetVersionHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSValuacionesSoap" type="tns:WSValuacionesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersion">
+      <soap:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/GetVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarOperacionesNDFAValuar">
+      <soap:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/RecuperarOperacionesNDFAValuar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarOperacionesSWAPAValuar">
+      <soap:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/RecuperarOperacionesSWAPAValuar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InformarNovedadesValuaciones">
+      <soap:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/InformarNovedadesValuaciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarAgendaCuponesOperacionesSWAPAValuar">
+      <soap:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/RecuperarAgendaCuponesOperacionesSWAPAValuar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarOperacionesSWAPSAValuar">
+      <soap:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/GenerarOperacionesSWAPSAValuar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarOperacionesNDFAValuar">
+      <soap:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/GenerarOperacionesNDFAValuar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSValuacionesSoap12" type="tns:WSValuacionesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetVersion">
+      <soap12:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/GetVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarOperacionesNDFAValuar">
+      <soap12:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/RecuperarOperacionesNDFAValuar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarOperacionesSWAPAValuar">
+      <soap12:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/RecuperarOperacionesSWAPAValuar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InformarNovedadesValuaciones">
+      <soap12:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/InformarNovedadesValuaciones" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarAgendaCuponesOperacionesSWAPAValuar">
+      <soap12:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/RecuperarAgendaCuponesOperacionesSWAPAValuar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarOperacionesSWAPSAValuar">
+      <soap12:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/GenerarOperacionesSWAPSAValuar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarOperacionesNDFAValuar">
+      <soap12:operation soapAction="http://api.patron.mae.com.ar/sistemasexternos/itau/GenerarOperacionesNDFAValuar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSValuacionesHttpGet" type="tns:WSValuacionesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetVersion">
+      <http:operation location="/GetVersion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSValuacionesHttpPost" type="tns:WSValuacionesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetVersion">
+      <http:operation location="/GetVersion" />
+      <wsdl:input>
+        <mime:content  type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSValuaciones">
+    <wsdl:port name="WSValuacionesSoap" binding="tns:WSValuacionesSoap">
+      <soap:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSInterfaceValuaciones.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSValuacionesSoap12" binding="tns:WSValuacionesSoap12">
+      <soap12:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSInterfaceValuaciones.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSValuacionesHttpGet" binding="tns:WSValuacionesHttpGet">
+      <http:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSInterfaceValuaciones.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSValuacionesHttpPost" binding="tns:WSValuacionesHttpPost">
+      <http:address location="http://patronh/itau_hom2/MAE.Sime.Services/Servicios/WSInterfaceValuaciones.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
