@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for calcularMTMNdfResponse complex type.
+ * <p>Java class for resetBBDDResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="calcularMTMNdfResponse">
+ * &lt;complexType name="resetBBDDResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://valuaciones.itau.rytsa/}informarNovedadesValuacionesXmlRequest" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -27,23 +27,23 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "calcularMTMNdfResponse", propOrder = {
+@XmlType(name = "resetBBDDResponse", propOrder = {
     "_return"
 })
-public class CalcularMTMNdfResponse {
+public class ResetBBDDResponse {
 
     @XmlElement(name = "return")
-    protected InformarNovedadesValuacionesXmlRequest _return;
+    protected String _return;
 
     /**
      * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link InformarNovedadesValuacionesXmlRequest }
+     *     {@link String }
      *     
      */
-    public InformarNovedadesValuacionesXmlRequest getReturn() {
+    public String getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class CalcularMTMNdfResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link InformarNovedadesValuacionesXmlRequest }
+     *     {@link String }
      *     
      */
-    public void setReturn(InformarNovedadesValuacionesXmlRequest value) {
+    public void setReturn(String value) {
         this._return = value;
     }
 

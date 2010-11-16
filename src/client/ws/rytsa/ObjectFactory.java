@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _ResetBBDD_QNAME = new QName("http://valuaciones.itau.rytsa/", "resetBBDD");
     private final static QName _ParseException_QNAME = new QName("http://valuaciones.itau.rytsa/", "ParseException");
     private final static QName _CalcularMTMNdfResponse_QNAME = new QName("http://valuaciones.itau.rytsa/", "calcularMTMNdfResponse");
     private final static QName _TestSuma1DiaResponse_QNAME = new QName("http://valuaciones.itau.rytsa/", "testSuma1DiaResponse");
@@ -32,68 +33,13 @@ public class ObjectFactory {
     private final static QName _Exception_QNAME = new QName("http://valuaciones.itau.rytsa/", "Exception");
     private final static QName _CalcularMTMSwapResponse_QNAME = new QName("http://valuaciones.itau.rytsa/", "calcularMTMSwapResponse");
     private final static QName _CalcularMTMNdf_QNAME = new QName("http://valuaciones.itau.rytsa/", "calcularMTMNdf");
+    private final static QName _ResetBBDDResponse_QNAME = new QName("http://valuaciones.itau.rytsa/", "resetBBDDResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: client.ws.rytsa
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link TestSuma1Dia }
-     * 
-     */
-    public TestSuma1Dia createTestSuma1Dia() {
-        return new TestSuma1Dia();
-    }
-
-    /**
-     * Create an instance of {@link CalcularMTMSwap }
-     * 
-     */
-    public CalcularMTMSwap createCalcularMTMSwap() {
-        return new CalcularMTMSwap();
-    }
-
-    /**
-     * Create an instance of {@link CalcularMTMNdf }
-     * 
-     */
-    public CalcularMTMNdf createCalcularMTMNdf() {
-        return new CalcularMTMNdf();
-    }
-
-    /**
-     * Create an instance of {@link CalcularMTMSwapResponse }
-     * 
-     */
-    public CalcularMTMSwapResponse createCalcularMTMSwapResponse() {
-        return new CalcularMTMSwapResponse();
-    }
-
-    /**
-     * Create an instance of {@link NovedadesValuacionesRequestData }
-     * 
-     */
-    public NovedadesValuacionesRequestData createNovedadesValuacionesRequestData() {
-        return new NovedadesValuacionesRequestData();
-    }
-
-    /**
-     * Create an instance of {@link TestSuma1DiaResponse }
-     * 
-     */
-    public TestSuma1DiaResponse createTestSuma1DiaResponse() {
-        return new TestSuma1DiaResponse();
-    }
-
-    /**
-     * Create an instance of {@link Exception }
-     * 
-     */
-    public Exception createException() {
-        return new Exception();
     }
 
     /**
@@ -105,11 +51,100 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Exception }
+     * 
+     */
+    public Exception createException() {
+        return new Exception();
+    }
+
+    /**
+     * Create an instance of {@link InformarNovedadesValuacionesXmlRequest }
+     * 
+     */
+    public InformarNovedadesValuacionesXmlRequest createInformarNovedadesValuacionesXmlRequest() {
+        return new InformarNovedadesValuacionesXmlRequest();
+    }
+
+    /**
      * Create an instance of {@link ParseException }
      * 
      */
     public ParseException createParseException() {
         return new ParseException();
+    }
+
+    /**
+     * Create an instance of {@link CalcularMTMNdf }
+     * 
+     */
+    public CalcularMTMNdf createCalcularMTMNdf() {
+        return new CalcularMTMNdf();
+    }
+
+    /**
+     * Create an instance of {@link TestSuma1Dia }
+     * 
+     */
+    public TestSuma1Dia createTestSuma1Dia() {
+        return new TestSuma1Dia();
+    }
+
+    /**
+     * Create an instance of {@link TestSuma1DiaResponse }
+     * 
+     */
+    public TestSuma1DiaResponse createTestSuma1DiaResponse() {
+        return new TestSuma1DiaResponse();
+    }
+
+    /**
+     * Create an instance of {@link CalcularMTMSwapResponse }
+     * 
+     */
+    public CalcularMTMSwapResponse createCalcularMTMSwapResponse() {
+        return new CalcularMTMSwapResponse();
+    }
+
+    /**
+     * Create an instance of {@link RequestData }
+     * 
+     */
+    public RequestData createRequestData() {
+        return new RequestData();
+    }
+
+    /**
+     * Create an instance of {@link ResetBBDD }
+     * 
+     */
+    public ResetBBDD createResetBBDD() {
+        return new ResetBBDD();
+    }
+
+    /**
+     * Create an instance of {@link ResetBBDDResponse }
+     * 
+     */
+    public ResetBBDDResponse createResetBBDDResponse() {
+        return new ResetBBDDResponse();
+    }
+
+    /**
+     * Create an instance of {@link CalcularMTMSwap }
+     * 
+     */
+    public CalcularMTMSwap createCalcularMTMSwap() {
+        return new CalcularMTMSwap();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ResetBBDD }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://valuaciones.itau.rytsa/", name = "resetBBDD")
+    public JAXBElement<ResetBBDD> createResetBBDD(ResetBBDD value) {
+        return new JAXBElement<ResetBBDD>(_ResetBBDD_QNAME, ResetBBDD.class, null, value);
     }
 
     /**
@@ -182,6 +217,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://valuaciones.itau.rytsa/", name = "calcularMTMNdf")
     public JAXBElement<CalcularMTMNdf> createCalcularMTMNdf(CalcularMTMNdf value) {
         return new JAXBElement<CalcularMTMNdf>(_CalcularMTMNdf_QNAME, CalcularMTMNdf.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ResetBBDDResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://valuaciones.itau.rytsa/", name = "resetBBDDResponse")
+    public JAXBElement<ResetBBDDResponse> createResetBBDDResponse(ResetBBDDResponse value) {
+        return new JAXBElement<ResetBBDDResponse>(_ResetBBDDResponse_QNAME, ResetBBDDResponse.class, null, value);
     }
 
 }

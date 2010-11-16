@@ -1,7 +1,6 @@
 
 package client.ws.rytsa;
 
-import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -24,7 +23,7 @@ public interface Test {
      * 
      * @param arg0
      * @return
-     *     returns java.util.List<client.ws.rytsa.NovedadesValuacionesRequestData>
+     *     returns client.ws.rytsa.InformarNovedadesValuacionesXmlRequest
      * @throws ParseException_Exception
      * @throws Exception_Exception
      */
@@ -32,7 +31,7 @@ public interface Test {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "calcularMTMNdf", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.CalcularMTMNdf")
     @ResponseWrapper(localName = "calcularMTMNdfResponse", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.CalcularMTMNdfResponse")
-    public List<NovedadesValuacionesRequestData> calcularMTMNdf(
+    public InformarNovedadesValuacionesXmlRequest calcularMTMNdf(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0)
         throws Exception_Exception, ParseException_Exception
@@ -42,7 +41,7 @@ public interface Test {
      * 
      * @param arg0
      * @return
-     *     returns java.util.List<client.ws.rytsa.NovedadesValuacionesRequestData>
+     *     returns client.ws.rytsa.InformarNovedadesValuacionesXmlRequest
      * @throws ParseException_Exception
      * @throws Exception_Exception
      */
@@ -50,10 +49,27 @@ public interface Test {
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "calcularMTMSwap", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.CalcularMTMSwap")
     @ResponseWrapper(localName = "calcularMTMSwapResponse", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.CalcularMTMSwapResponse")
-    public List<NovedadesValuacionesRequestData> calcularMTMSwap(
+    public InformarNovedadesValuacionesXmlRequest calcularMTMSwap(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0)
         throws Exception_Exception, ParseException_Exception
+    ;
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.lang.String
+     * @throws Exception_Exception
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "resetBBDD", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.ResetBBDD")
+    @ResponseWrapper(localName = "resetBBDDResponse", targetNamespace = "http://valuaciones.itau.rytsa/", className = "client.ws.rytsa.ResetBBDDResponse")
+    public String resetBBDD(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0)
+        throws Exception_Exception
     ;
 
     /**
