@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import client.ws.rytsa.InformarNovedadesValuacionesXmlRequest;
 import client.ws.rytsa.NovedadesValuacionesRequestData;
+import client.ws.rytsa.RequestData;
 import client.ws.rytsa.Test;
 import client.ws.rytsa.TestService;
 
@@ -27,99 +29,128 @@ public class ConsumirWS extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
-	 *
+	 * 
 	 * This method is called when a form has its tag value method equals to get.
 	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * @param request
+	 *            the request send by the client to the server
+	 * @param response
+	 *            the response send by the server to the client
+	 * @throws ServletException
+	 *             if an error occurred
+	 * @throws IOException
+	 *             if an error occurred
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String metodo = request.getParameter("metodo");
 		String fecha = request.getParameter("Fecha");
-		
+
 		String path = request.getContextPath();
-		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-		
-		
+		String basePath = request.getScheme() + "://" + request.getServerName() + ":"
+				+ request.getServerPort() + path + "/";
+
 		TestService.TESTSERVICE_WSDL_LOCATION = new URL(basePath + "ItauMTM?wsdl");
 		TestService ts = new TestService();
-		if (metodo.equalsIgnoreCase("NDF")){
-			try {	
+		if (metodo.equalsIgnoreCase("NDF")) {
+			try {
 				Test t = ts.getTestPort();
-				List<NovedadesValuacionesRequestData> t2 = t.calcularMTMNdf(fecha);
+				InformarNovedadesValuacionesXmlRequest t2 = t.calcularMTMNdf(fecha);
 				StringBuffer salida = new StringBuffer();
-				for (NovedadesValuacionesRequestData novedadesValuacionesRequestData : t2) {
-					salida.append(novedadesValuacionesRequestData.toString());
+				for (RequestData novedadesValuacionesRequestData : t2.getRequestDataList()) {
+					salida.append("MTM ID: " + novedadesValuacionesRequestData.getIdOperacion() + " VALOR: " + novedadesValuacionesRequestData.getMTM() );
 				}
 				request.setAttribute("resul", salida.toString());
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+						"/index.jsp");
 				dispatcher.forward(request, response);
-			} catch (Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
-				request.setAttribute("resul",e.toString());
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+				request.setAttribute("resul", e.toString());
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+						"/index.jsp");
 				dispatcher.forward(request, response);
 			}
-		} else { 
+		} else {
 			if (metodo.equalsIgnoreCase("SWAP")) {
-			
-				try {	
+
+				try {
 					Test t = ts.getTestPort();
-					List<NovedadesValuacionesRequestData> t2 = t.calcularMTMSwap(fecha);
+					InformarNovedadesValuacionesXmlRequest t2 = t.calcularMTMSwap(fecha);
 					StringBuffer salida = new StringBuffer();
-					for (NovedadesValuacionesRequestData novedadesValuacionesRequestData : t2) {
-						salida.append(novedadesValuacionesRequestData.toString());
+					for (RequestData novedadesValuacionesRequestData : t2.getRequestDataList()) {
+						salida.append("MTM ID: " + novedadesValuacionesRequestData.getIdOperacion() + " VALOR: " + novedadesValuacionesRequestData.getMTM() );
 					}
 					request.setAttribute("resul2", salida.toString());
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+							"/index.jsp");
 					dispatcher.forward(request, response);
-				} catch (Exception e){
+				} catch (Exception e) {
 					e.printStackTrace();
-					request.setAttribute("resul2",e.toString());
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+					request.setAttribute("resul2", e.toString());
+					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+							"/index.jsp");
 					dispatcher.forward(request, response);
 				}
 			} else {
-				try {	
-					Test t = ts.getTestPort();
-					
-					String salida= t.testSuma1Dia(fecha);
-					request.setAttribute("resul3", salida);
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-					dispatcher.forward(request, response);
-				} catch (Exception e){
-					e.printStackTrace();
-					request.setAttribute("resul3",e.toString());
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-					dispatcher.forward(request, response);
+				if (metodo.equalsIgnoreCase("ResetBBDD")) {
+					try {
+						Test t = ts.getTestPort();
+						StringBuffer salida = new StringBuffer();
+						salida.append(t.resetBBDD(getServletContext().getRealPath("DBFs")));	
+						request.setAttribute("resul4", salida.toString());
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+								"/index.jsp");
+						dispatcher.forward(request, response);
+					} catch (Exception e) {
+						e.printStackTrace();
+						request.setAttribute("resul4", e.toString());
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+								"/index.jsp");
+						dispatcher.forward(request, response);
+					}
+				} else {
+					try {
+						Test t = ts.getTestPort();
+
+						String salida = t.testSuma1Dia(fecha);
+						request.setAttribute("resul3", salida);
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+								"/index.jsp");
+						dispatcher.forward(request, response);
+					} catch (Exception e) {
+						e.printStackTrace();
+						request.setAttribute("resul3", e.toString());
+						RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
+								"/index.jsp");
+						dispatcher.forward(request, response);
+					}
 				}
-			} 
-			
+
+			}
 		}
-		
-	
-	
+
 	}
 
 	/**
 	 * The doPost method of the servlet. <br>
-	 *
-	 * This method is called when a form has its tag value method equals to post.
 	 * 
-	 * @param request the request send by the client to the server
-	 * @param response the response send by the server to the client
-	 * @throws ServletException if an error occurred
-	 * @throws IOException if an error occurred
+	 * This method is called when a form has its tag value method equals to
+	 * post.
+	 * 
+	 * @param request
+	 *            the request send by the client to the server
+	 * @param response
+	 *            the response send by the server to the client
+	 * @throws ServletException
+	 *             if an error occurred
+	 * @throws IOException
+	 *             if an error occurred
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
-
-
 
 }

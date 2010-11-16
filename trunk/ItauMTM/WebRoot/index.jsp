@@ -34,5 +34,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 <%String b =  (String)request.getAttribute("resul2"); %>
 	 Resultado : <%=b %>
 	</form>	 
+	
+	<hr>
+	<form action="/ItauMTM/servlet/ConsumirWS" >
+	 <P>Cargar Base De Datos:</P>
+	 	<input type="hidden" name="metodo" value="ResetBBDD"> 
+	    <P> 	<input type="submit" value="Cargar BBDD"> </P>
+	 <%String d =  (String)request.getAttribute("resul4"); %>
+	 Resultado : <%=d %>
+	</form>	 
+	
   </body>
 </html>
