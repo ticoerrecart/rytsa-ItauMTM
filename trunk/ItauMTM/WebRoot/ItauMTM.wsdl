@@ -7,6 +7,8 @@
    <xs:element name="calcularMTMNdfResponse" type="tns:calcularMTMNdfResponse"/>
    <xs:element name="calcularMTMSwap" type="tns:calcularMTMSwap"/>
    <xs:element name="calcularMTMSwapResponse" type="tns:calcularMTMSwapResponse"/>
+   <xs:element name="resetBBDD" type="tns:resetBBDD"/>
+   <xs:element name="resetBBDDResponse" type="tns:resetBBDDResponse"/>
    <xs:element name="testSuma1Dia" type="tns:testSuma1Dia"/>
    <xs:element name="testSuma1DiaResponse" type="tns:testSuma1DiaResponse"/>
    <xs:complexType name="calcularMTMNdf">
@@ -16,23 +18,25 @@
    </xs:complexType>
    <xs:complexType name="calcularMTMNdfResponse">
     <xs:sequence>
-     <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:novedadesValuacionesRequestData"/>
+     <xs:element minOccurs="0" name="return" type="tns:informarNovedadesValuacionesXmlRequest"/>
     </xs:sequence>
    </xs:complexType>
-   <xs:complexType name="novedadesValuacionesRequestData">
+   <xs:complexType name="informarNovedadesValuacionesXmlRequest">
     <xs:sequence>
-     <xs:element minOccurs="0" name="fecha" type="xs:dateTime"/>
-     <xs:element minOccurs="0" name="fechaCargaPrecio" type="xs:dateTime"/>
-     <xs:element minOccurs="0" name="fechaUltimaValuacion" type="xs:dateTime"/>
+     <xs:element minOccurs="0" name="codFormula" type="xs:string"/>
+     <xs:element minOccurs="0" name="fechaProceso" type="xs:string"/>
+     <xs:element maxOccurs="unbounded" minOccurs="0" name="requestDataList" nillable="true" type="tns:requestData"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="requestData">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="codUsuario" type="xs:string"/>
+     <xs:element minOccurs="0" name="codigo" type="xs:string"/>
+     <xs:element minOccurs="0" name="corrida" type="xs:string"/>
+     <xs:element minOccurs="0" name="fecha" type="xs:string"/>
      <xs:element minOccurs="0" name="idOperacion" type="xs:string"/>
-     <xs:element minOccurs="0" name="idUsuarioCargaSE" type="xs:string"/>
-     <xs:element minOccurs="0" name="monedaValuacion" type="xs:string"/>
-     <xs:element name="plazo" type="xs:int"/>
-     <xs:element minOccurs="0" name="precio" type="xs:double"/>
-     <xs:element minOccurs="0" name="tasaUtilizada" type="xs:double"/>
-     <xs:element minOccurs="0" name="tipoValuacion" type="xs:string"/>
-     <xs:element minOccurs="0" name="totalValuado" type="xs:double"/>
-     <xs:element minOccurs="0" name="valoresNominales" type="xs:double"/>
+     <xs:element minOccurs="0" name="MTM" type="xs:double"/>
+     <xs:element minOccurs="0" name="monedaValuacion" type="xs:int"/>
     </xs:sequence>
    </xs:complexType>
    <xs:complexType name="ParseException">
@@ -53,7 +57,15 @@
    </xs:complexType>
    <xs:complexType name="calcularMTMSwapResponse">
     <xs:sequence>
-     <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:novedadesValuacionesRequestData"/>
+     <xs:element minOccurs="0" name="return" type="tns:informarNovedadesValuacionesXmlRequest"/>
+    </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="resetBBDD">
+    <xs:sequence/>
+   </xs:complexType>
+   <xs:complexType name="resetBBDDResponse">
+    <xs:sequence>
+     <xs:element minOccurs="0" name="return" type="xs:string"/>
     </xs:sequence>
    </xs:complexType>
    <xs:complexType name="testSuma1Dia">
@@ -77,6 +89,9 @@
  <message name="Test_calcularMTMNdfResponse">
   <part element="tns:calcularMTMNdfResponse" name="calcularMTMNdfResponse"/>
  </message>
+ <message name="Test_resetBBDDResponse">
+  <part element="tns:resetBBDDResponse" name="resetBBDDResponse"/>
+ </message>
  <message name="ParseException">
   <part element="tns:ParseException" name="ParseException"/>
  </message>
@@ -88,6 +103,9 @@
  </message>
  <message name="Test_calcularMTMSwapResponse">
   <part element="tns:calcularMTMSwapResponse" name="calcularMTMSwapResponse"/>
+ </message>
+ <message name="Test_resetBBDD">
+  <part element="tns:resetBBDD" name="resetBBDD"/>
  </message>
  <message name="Test_calcularMTMNdf">
   <part element="tns:calcularMTMNdf" name="calcularMTMNdf"/>
@@ -102,6 +120,12 @@
   <operation name="calcularMTMSwap" parameterOrder="calcularMTMSwap">
    <input message="tns:Test_calcularMTMSwap"/>
    <output message="tns:Test_calcularMTMSwapResponse"/>
+   <fault message="tns:Exception" name="Exception"/>
+   <fault message="tns:ParseException" name="ParseException"/>
+  </operation>
+  <operation name="resetBBDD" parameterOrder="resetBBDD">
+   <input message="tns:Test_resetBBDD"/>
+   <output message="tns:Test_resetBBDDResponse"/>
    <fault message="tns:Exception" name="Exception"/>
    <fault message="tns:ParseException" name="ParseException"/>
   </operation>
@@ -130,6 +154,21 @@
    </fault>
   </operation>
   <operation name="calcularMTMSwap">
+   <soap:operation soapAction=""/>
+   <input>
+    <soap:body use="literal"/>
+   </input>
+   <output>
+    <soap:body use="literal"/>
+   </output>
+   <fault name="Exception">
+    <soap:fault name="Exception" use="literal"/>
+   </fault>
+   <fault name="ParseException">
+    <soap:fault name="ParseException" use="literal"/>
+   </fault>
+  </operation>
+  <operation name="resetBBDD">
    <soap:operation soapAction=""/>
    <input>
     <soap:body use="literal"/>
